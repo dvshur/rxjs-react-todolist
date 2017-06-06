@@ -9,7 +9,7 @@ const initialState = 'SHOW_ALL';
 const visibilityFilter$ = Observable
 	.of(() => initialState)
 	.merge(
-		setVisibilityFilter.map(payload => () => payload),
+		setVisibilityFilter$.map(payload => () => payload),
 	);
 
 

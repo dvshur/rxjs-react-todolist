@@ -1,12 +1,9 @@
 import { Subject } from 'rxjs/Subject';
 
 
-export default {
-  addTodo$: new Rx.Subject,
-  toggleTodo$: new Rx.Subject,
-  setVisibilityFilter$: new Rx.Subject,
-}
-
+export const addTodo$ = new Subject();
+export const toggleTodo$ = new Subject();
+export const setVisibilityFilter$ = new Subject();
 
 
 // let nextTodoId = 0

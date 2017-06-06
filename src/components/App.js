@@ -1,18 +1,14 @@
 import React from 'react'
-// import Footer from './Footer'
-// import Link from './Link'
-// import AddTodo from '../containers/AddTodo'
-// import VisibleTodoList from '../containers/VisibleTodoList'
-// import UndoRedo from '../containers/UndoRedo'
+import Footer from './Footer'
+import AddTodo from '../containers/AddTodo'
+import VisibleTodoList from '../containers/VisibleTodoList'
+
 
 const App = () => (
   <div>
-    123
-    {/*<AddTodo />*/}
-    {/*<VisibleTodoList />*/}
-    {/*<Link />*/}
-    {/*<Footer />*/}
-    {/*<UndoRedo />*/}
+    <AddTodo />
+    <VisibleTodoList />
+    <Footer />
   </div>
 )
 

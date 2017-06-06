@@ -1,6 +1,6 @@
 import { Observable } from "rxjs/Observable";
 
-import { addTodo$, toggleTodo$ } from "../actions/index";
+import { addTodo$, toggleTodo$ } from "../actions";
 
 
 // todos
@@ -9,15 +9,16 @@ const initialState = [];
 const todos$ = Observable
 	.of(() => initialState)
 	.merge(
-		addTodo$.map(action => state => [
+		addTodo$.map(text => state => [
 			...state,
 			{
-				...action,
+				text,
+				id: state[state.length - 1] ? state[state.length - 1].id + 1 : 0,  // automatically increment id
 				completed: false
 			}
 		]),
-		toggleTodo$.map(action => state => state.map(todo => {
-			return action.id !== todo.id ?
+		toggleTodo$.map(id => state => state.map(todo => {
+			return id !== todo.id ?
 				todo :
 				{
 					...todo,

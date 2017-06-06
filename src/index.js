@@ -3,11 +3,9 @@ import 'rxjs'
 import React from 'react'
 import { render } from 'react-dom'
 
-import { Observable } from 'rxjs/Observable'
 
 // state management lib
-import { createState } from './lib'
-// import { Provider } from 'react-redux'
+import { createState, Provider } from './lib'
 
 
 import App from './components/App'
@@ -27,8 +25,11 @@ const state$ = createState(
 
 state$.subscribe(
 	state => {
+		console.log(state);
 		render(
-			<App />,
+			<Provider state$={state$}>
+				<App />
+			</Provider>,
 			document.getElementById('root')
 		)
 	},

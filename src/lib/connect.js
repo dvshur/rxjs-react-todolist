@@ -2,9 +2,14 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 
-export default function connect(selector = state => state, actionSubjects) {
-	const actions = Object.keys(actionSubjects)
-		.reduce((akk, key) => ({ ...akk, [key]: value => actionSubjects[key].next(value) }), {});
+export default function connect(mapStateToProps = state => state, mapSubjectsToProps = {}) {
+
+	let actions = {};
+
+	if (typeof mapSubjectsToProps === 'object') {
+		actions = Object.keys(mapSubjectsToProps)
+			.reduce((akk, key) => ({ ...akk, [key]: value => mapSubjectsToProps[key].next(value) }), {});
+	}
 
 	return function wrapWithConnect(WrappedComponent) {
 		return class Connect extends Component {
@@ -13,7 +18,9 @@ export default function connect(selector = state => state, actionSubjects) {
 			};
 
 			componentWillMount() {
-				this.subscription = this.context.state$.map(selector).subscribe(val => this.setState(val));
+				this.subscription = this.context.state$
+					.map(state => mapStateToProps(state, this.props))
+					.subscribe(val => this.setState(val));
 			}
 
 			componentWillUnmount() {
@@ -21,6 +28,9 @@ export default function connect(selector = state => state, actionSubjects) {
 			}
 
 			render() {
+				if (typeof mapSubjectsToProps === 'function') {
+					actions = mapSubjectsToProps(this.props);
+				}
 				return (
 					<WrappedComponent {...this.state} {...this.props} {...actions} />
 				);
