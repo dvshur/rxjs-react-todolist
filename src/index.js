@@ -25,7 +25,7 @@ const state$ = createState(
 
 state$.subscribe(
 	state => {
-		console.log(state);
+		console.log(state); // @TODO remove_debug
 		render(
 			<Provider state$={state$}>
 				<App />
